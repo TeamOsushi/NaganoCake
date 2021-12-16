@@ -1,3 +1,56 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  # admin
+  #devise_for :admins
+  namespace :admin do
+    resources :customers,only: [:index,:show,:edit,:update]
+  	resources :items,only: [:index,:new,:create,:show,:edit,:update,]
+  	resources :genres,only: [:index,:create,:edit,:update, :show]
+  	resources :orders,only: [:index,:show,:update] do
+  	  member do
+        get :current_index
+        resource :order_items,only: [:update]
+      end
+      collection do
+        get :order_index
+      end
+    end
+  end
+
+   # customer
+   devise_for :customers,skip: [:passwords,], controllers: {
+    :sessions => 'customers/sessions',
+    :registrations => 'customers/registrations',
+   }
+  root to: 'public/homes#top'
+  get 'home/about'
+  
+   scope module: :public do
+    resources :items,only: [:index,:show]
+    get 'search' => 'items#search'
+    get 'customer/edit' => 'customers#edit'
+    put 'customer' => 'customers#update'
+
+  	resource :customers,only: [:show] do
+  		collection do
+  	     get 'unsubscribe'
+  	     patch 'withdrawal'
+  	  end
+
+      resources :cart_items,only: [:index,:update,:create,:destroy] do
+        collection do
+          delete '/' => 'cart_items#all_destroy'
+        end
+      end
+
+      resources :orders,only: [:new,:index,:show,:create] do
+        collection do
+          post 'log'
+          get 'thanx'
+        end
+      end
+
+      resources :addresses,only: [:index,:create,:edit,:update,:destroy]
+    end
+  end
 end

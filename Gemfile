@@ -71,3 +71,5 @@ gem 'rspec-rails'
 gem "factory_bot_rails"
 gem 'faker'
 gem 'byebug'
+gem "enum_help"
+gem "pry-rails"

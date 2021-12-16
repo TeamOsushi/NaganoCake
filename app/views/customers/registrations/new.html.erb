@@ -1,0 +1,51 @@
+<%= render 'layouts/header' %>
+<div class='container'>
+  <div class='row'>
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0">
+      <h2 class="head-line title_h2 "><i class="fas fa-user-edit"></i>新規会員登録</h2>
+      <%= form_with model: @customer, url: customer_registration_path, local: true do |f| %>
+      <%= render "layouts/error_messages", resource: resource %>
+        <div class="field form-group col-xs-12">
+        <%= f.label :"名前", class: "col-sm-2 control-label" %>
+        <%= f.label :"(姓)", class: "col-sm-1 control-label" %>
+        <%= f.text_field :last_name, autofocus: true, class: "col-sm-3 form-control-static name" %>
+        <%= f.label :"(名)", class: "col-sm-1 control-label" %>
+        <%= f.text_field :first_name, autofocus: true, class: "col-sm-3 form-control-static name" %>
+      </div>
+      
+      <div class="field form-group col-xs-12">
+        <%= f.label :"フリガナ", class: "col-sm-2 control-label" %>
+        <%= f.label :"(セイ)", class: "col-sm-1 control-label" %>
+        <%= f.text_field :kana_last_name, autofocus: true, class: "col-sm-3 form-control-static name" %>
+        <%= f.label :"(メイ)", class: "col-sm-1 control-label" %>
+        <%= f.text_field :kana_first_name, autofocus: true, class: "col-sm-3 form-control-static name" %>
+      </div>
+      
+        <div class="field form-group col-xs-12">
+          <%= f.label :"メールアドレス" %><br />
+          <%= f.email_field :email, autofocus: true, class: "email" %>
+        </div>
+        
+        <div class="field form-group col-xs-9">
+          <%= f.label :パスワード %>
+          <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> 文字以上)</em>
+          <% end %><br />
+          <%= f.password_field :password, autocomplete: "off", class: "password" %>
+        </div>
+        
+        <div class="field form-group col-xs-9">
+          <%= f.label :"パスワード(確認用)" %><br />
+          <%= f.password_field :password_confirmation, autocomplete: "off", class: "password_confirm" %>
+        </div>
+        
+        <div class="actions col-xs-9">
+          <%= f.submit "新規登録",class: 'btn btn-success btn-lg col-xs-7' %>
+        </div>
+      <% end %>
+      
+      <h4 style="width: 180px;background-color: #f0f6da; text-align: center;">既に登録済の方</h4>
+    <%= link_to "こちら", new_session_path(resource_name) %><span>からログインしてください。</span>
+    </div>
+  </div>
+</div>
