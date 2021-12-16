@@ -1,0 +1,19 @@
+<%= render 'layouts/header' %>
+
+<div class="container">
+ <div class="row">
+  <%= attachment_image_tag @item, :image, fill, 100, 100, format: 'jpeg' %>
+  <%= @item.item_name %>
+  <%= @item.genre_id %>
+  <%= @item.production %>
+  <%= @item.price_without_tax %>
+  <%= @item.is_sales_status %>
+  <%#カートに入れるためのフォーム%>
+  <%= form_with model:@cart, local:true do |f| %>
+   <%= f.hidden_field :item_id, value => @item.id %> <%#顧客がどの商品をカートに入れたかを自動で入力してくれるもの%>
+   <%= f.select :amount, [1, 2, 3, 4, 5] %> <%#個数を選択するボタン、これで正しいかまだ分からない %>
+   <%= f.submit 'カートに入れる' %>　<%#ログインせずに押した場合はログインしてくださいとメッセージを出してカートには入れれないようにする%>
+  <% end %>
+ </div>
+</div>
+ 

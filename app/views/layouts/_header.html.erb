@@ -1,0 +1,39 @@
+<header>
+ <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+  <div class="container">
+    <a class="navbar-brand">
+     <%= text_field_tag (:category_word) %>
+     <%= submit_tag "検索",class: "button is-info" %>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+     <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ml-auto">
+       <%#ここに顧客側と管理者側で表示内容を変えるif文を書く%>
+       <%#すべてのアイコンに各ページのリンクをつける%>
+       <% if customer_signed_in? %>
+        <li><i class="text-light mx-4 h3 ">ながのケーキ</i></li> <%#ロゴにtopページへ飛ぶリンクをつける%>
+        <li><i class="fas fa-cheese text-light mx-4" >商品一覧</i></li> <%#ロゴに商品一覧ページへ飛ぶリンクをつける%>
+        <li><i class="fas fa-user text-light pr-4"><%= link_to 'ユーザー', customers_path %></i></li> <%#ロゴにマイページページへ飛ぶリンクをつける%>
+        <li><i class="fas fa-store text-light pr-4">アバウト</i></li> <%#ロゴにaboutページへ飛ぶリンクをつける%>
+        <li><i class="fas fa-shopping-cart text-light pr-4"><%= link_to 'カート', customers_cart_items_path %></i></li> <%#ロゴにカートページへ飛ぶリンクをつける%>
+        <li><i class="fas fa-sign-out-alt text-light"><%= link_to 'ログアウト', destroy_customer_session_path, method: :delete %></i></li> <%#押すとログアウトするようにする%>
+       <% else %>
+        <li><i class="fas fa-cheese text-light mx-4" >商品一覧</i></li> <%#ロゴに商品一覧ページへ飛ぶリンクをつける%>
+        <li><i class="fas fa-store text-light pr-4">アバウト</i></li> <%#ロゴにaboutページへ飛ぶリンクをつける%>
+        <li><i class="fas fa-user-plus text-light"><%= link_to '新規登録', new_customer_registration_path %></i></li> <%#ロゴに新規登録ページへ飛ぶリンクをつける%>
+        <li><i class="fas fa-sign-in-alt text-light"><%= link_to 'ログイン', new_customer_session_path %></i></li> <%#ロゴにログインページへ飛ぶリンクをつける%>
+       <% end %>
+       <%#ここにelse
+        <li><i class="text-light mx-4 h3 ">ながのケーキ</i></li> 
+        <li><i class="fas fa-cheese text-light mx-4" >商品一覧</i></li>
+        <li><i class="fas fa-utensils text-light mx-4">ジャンル</i></li>
+        <li><i class="fas fa-sign-out-alt text-light">ログアウト</i></li>
+        %>
+      </ul>
+     </div>
+    </div>
+  </div>
+ </nav>
+</header>
