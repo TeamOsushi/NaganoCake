@@ -15,6 +15,10 @@ end
 
 private
 
+def item_params
+   params.require(:item).permit(:item_name, :image, :genre, :introduction, :is_sales_status, :price_without_tax)
+end 
+
 def cart_item_params
     params.require(:cart_item).permit(:item_id, :amount,)
 end

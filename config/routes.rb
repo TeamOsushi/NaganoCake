@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     :registrations => 'customers/registrations',
    }
   root to: 'public/homes#top'
-  get 'home/about'
+  get 'public/home/about' => 'public/homes#about'
   
    scope module: :public do
     resources :items,only: [:index,:show]
