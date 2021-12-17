@@ -1,0 +1,12 @@
+<div class="container">
+ <div class="row">
+   <h1 class="mx-auto pt-5 pb-5">商品一覧</h1>
+ </div>
+ <%#ここに商品追加ページに飛ぶリンクを作る%>
+ <div class="row">
+   <% @items.each do |item| %>
+    <%= attachment_image_tag item, :image, fill, 100, 100, format: 'jpeg' %>
+    <%= item.item_name %>
+    <%= item.price_without_tax %>
+   <% end %>
+ </div>
