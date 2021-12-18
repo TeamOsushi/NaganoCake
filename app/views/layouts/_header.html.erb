@@ -19,18 +19,21 @@
         <li><i class="fas fa-store text-light pr-4"><%= link_to 'アバウト', public_home_about_path %></i></li>
         <li><i class="fas fa-shopping-cart text-light pr-4"><%= link_to 'カート', customers_cart_items_path %></i></li>
         <li><i class="fas fa-sign-out-alt text-light"><%= link_to 'ログアウト', destroy_customer_session_path, method: :delete %></i></li>
+       <%#管理者用%>
+       <% elsif admin_signed_in? %>
+        <li><i class="text-light mx-4 h3 "><%= link_to 'ながのケーキ', root_path %></i></li>
+        <li><i class="fas fa-cheese text-light mx-4" ><%= link_to '商品一覧', admin_items_path %></i></li>
+        <li><i class="fas fa-user text-light pr-4"><%= link_to '顧客一覧', admin_customers_path %></i></li>
+        <li><i class="fas fa-store text-light pr-4"><%= link_to "注文履歴一覧", admin_orders_path %></i></li>
+        <li><i class="fas fa-shopping-cart text-light pr-4"><%= link_to "ジャンル一覧", admin_genres_path %></i></li>
+        <li><i class="fas fa-sign-out-alt text-light"><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %></i></li>
+       <%#いずれもログインしていない時%>
        <% else %>
         <li><i class="fas fa-cheese text-light mx-4" ><%= link_to '商品一覧', items_path %></i></li>
         <li><i class="fas fa-store text-light pr-4"><%= link_to 'アバウト', public_home_about_path %></i></li>
         <li><i class="fas fa-user-plus text-light"><%= link_to '新規登録', new_customer_registration_path %></i></li>
         <li><i class="fas fa-sign-in-alt text-light"><%= link_to 'ログイン', new_customer_session_path %></i></li>
        <% end %>
-       <%#ここにelse
-        <li><i class="text-light mx-4 h3 ">ながのケーキ</i></li> 
-        <li><i class="fas fa-cheese text-light mx-4" >商品一覧</i></li>
-        <li><i class="fas fa-utensils text-light mx-4">ジャンル</i></li>
-        <li><i class="fas fa-sign-out-alt text-light">ログアウト</i></li>
-        %>
       </ul>
      </div>
     </div>
