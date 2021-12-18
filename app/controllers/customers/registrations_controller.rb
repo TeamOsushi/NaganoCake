@@ -4,14 +4,6 @@ class Customers::RegistrationsController < Devise::RegistrationsController
   before_action :configure_permitted_parameters, only: [:create]
   before_action :authenticate_customer!, only: [:edit, :update]
   # before_action :configure_account_update_params, only: [:update]
-  
-  def after_sign_in_path_for(resource)
-    root_path
-  end
-  
-  def after_sign_up_path_for(resource)
-    root_path
-  end
   # GET /resource/sign_up
   # def new
   #   super

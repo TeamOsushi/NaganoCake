@@ -1,0 +1,11 @@
+<% if @address.errors.any? %>
+  $('#error').html("<%= j(render 'layouts/error_messages', resource: @address) %>");
+<% else %>
+  $('#create').html("<%= j(render 'public/addresses/index', addresses: @addresses) %>");
+  $('#create').show();
+  $('input').val("");
+  $('#error_explanation').hide();
+  $('#flash').html("<%= j(render 'layouts/flash') %>");
+  $('#flash').show();
+  setTimeout("$('#flash').fadeOut('slow')", 2000);
+<% end %>
