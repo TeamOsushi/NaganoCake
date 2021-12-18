@@ -5,3 +5,15 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Admin.create!(
+    email: 'admin@a',
+    password: 'aaaaaa'
+  )
+   Item.create!(
+    name: "ショートケーキ",
+    explanation: "ショートケーキ",
+    price_without_tax: "300",
+    genre_id: 1,
+    is_sales_status: [['販売中', true], ['販売停止', false]],
+    image: open("./app/assets/images/ケーキ.jpg")
+  )

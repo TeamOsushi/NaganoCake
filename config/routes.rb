@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
 
   # admin
-  #devise_for :admins
+  devise_for :admins, controllers: {
+   sessions: "customers/sessions"
+ }
   namespace :admin do
     resources :customers,only: [:index,:show,:edit,:update]
   	resources :items,only: [:index,:new,:create,:show,:edit,:update,]
   	resources :genres,only: [:index,:create,:edit,:update, :show]
   	resources :orders,only: [:index,:show,:update] do
+  	get 'top'=>'public/homes#top'
   	  member do
         get :current_index
         resource :order_items,only: [:update]
