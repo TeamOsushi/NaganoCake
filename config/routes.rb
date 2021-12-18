@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   	resources :items,only: [:index,:new,:create,:show,:edit,:update,]
   	resources :genres,only: [:index,:create,:edit,:update, :show]
   	resources :orders,only: [:index,:show,:update] do
+  	get 'top'=>'public/homes#top'
   	  member do
         get :current_index
         resource :order_items,only: [:update]
