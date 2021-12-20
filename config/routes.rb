@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   	resources :genres,only: [:index,:create,:edit,:update, :show]
   	resources :orders,only: [:index,:show,:update] do
   	get 'top'=>'public/homes#top'
+  	post 'items' => 'items#create'
   	  member do
         get :current_index
         resource :order_items,only: [:update]

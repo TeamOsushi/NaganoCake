@@ -1,6 +1,6 @@
 class Admin::ItemsController < ApplicationController
     def top
-        
+     
     end
     
     def index
@@ -16,14 +16,28 @@ class Admin::ItemsController < ApplicationController
     end
     
     def create
-      cart = Cart_item.new(params[:id])
-      cart.save
-      #ここに商品詳細に飛ぶリンク
+      item = Item.new(item_params)
+      if item.save
+       redirect_to admin_item_path(item.id)
+      else
+       render 'new'
+  アア
     end
     
+    def edit
+     @item = Item.find(params[:id])
+    end
+    
+    def update
+     item = Item.find(params[:id])
+     item.update(item_params)
+     redirect_to admin_item_path
+    end
+    
+    private
     
     def item_params
-     params.require(:item).permit(:item_name, :image, :genre, :introduction, :is_sales_status, :price_without_tax)
+     params.require(:item).permit(:item_name, :image, :genre_id, :introduction, :is_sales_status, :price_without_tax)
     end 
 
 

@@ -1,8 +1,9 @@
 <div class="container">
  <div class="row">
-  <%= attachment_image_tag @item, :image, fill, 100, 100, format: 'jpeg' %>
+  
+  <%= attachment_image_tag @item, :image, :fill, 100, 100, format: 'jpeg' %>
   <%= @item.item_name %>
   <%= @item.genre_id %>
-  <%= @item.production %>
   <%= @item.price_without_tax %>
-  <%= @item.is_sales_status %>
+  
+  <%= link_to "編集", edit_admin_item_path(@item.id) %>

@@ -2,11 +2,11 @@
  <div class="row">
    <h1 class="mx-auto pt-5 pb-5">商品一覧</h1>
  </div>
- <%#ここに商品追加ページに飛ぶリンクを作る%>
+ <%= link_to "商品新規登録", new_admin_item_path %>
  <div class="row">
    <% @items.each do |item| %>
-    <%= attachment_image_tag item, :image, fill, 100, 100, format: 'jpeg' %>
-    <%= item.item_name %>
+    <%= attachment_image_tag item, :image, :fill, 100, 100, format: 'jpeg' %>
+    <%= link_to'item.item_name', item_path(item.id) %>
     <%= item.price_without_tax %>
    <% end %>
  </div>

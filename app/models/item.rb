@@ -10,6 +10,6 @@ class Item < ApplicationRecord
     validates :item_name, presence: true
     validates :image, presence: true
     validates :genre_id, presence: true
-    validates :production, presence: true
+    validates :introduction, presence: true
     validates :price_without_tax, presence: true
 end
