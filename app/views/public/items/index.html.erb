@@ -7,8 +7,8 @@
  
  <div class="row">
    <% @items.each do |item| %>
-    <%= attachment_image_tag item, :image, :fill, 300, 300, format: 'jpeg' %>
-    <%= link_to'item_name', item_path(item.id) %>
+    <%= link_to(item_path(item.id)) do %><%= attachment_image_tag item, :image, :fill, 300, 300, format: 'jpeg' %><% end %>
+    <%= item.item_name %>
     <%= item.price_without_tax %>
    <% end %>
  </div>
