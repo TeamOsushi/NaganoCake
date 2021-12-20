@@ -6,18 +6,16 @@ class Public::OrdersController < ApplicationController
   
   def new
   	@order = Order.new
-  	@shipping_addresses = ShippingAddress.where(customer: current_customer)
+  	@shipping_addresses = Address.where(customer: current_customer)
   end
 
-	def comfirmation
-    @cart_items = current_cart
+	def log
+    @cart_items = current_customer.cart_items
 		@order = Order.new(
       customer: current_customer,
       payment_method: params[:order][:payment_method]
     )
 
-    # total_priceに請求額を代入
-    @order.total_price = total_payment(@order)
 
     # addressにresidenceの値がはいっていれば
     if params[:order][:addresses] == "residence"
@@ -46,13 +44,20 @@ class Public::OrdersController < ApplicationController
         render :new
       end
     end
+    #合計金額の計算式
+    sum = 0
+    @cart_items.each do |cart_item|
+      sum += (cart_item.item.price_without_tax * cart_item.amount)
+    end
+    sum += @order.shipping_cost
+    @order.total_payment = sum
 	end
 
 	def create
     @order = current_customer.orders.new(order_params)
     @order.save
     flash[:notice] = "ご注文が確定しました。"
-    redirect_to complete_customers_orders_path
+    redirect_to thanx_customers_orders_path
 
     # 新規住所(new_address)の場合saveする
     if params[:order][:ship] == "1"
@@ -60,24 +65,29 @@ class Public::OrdersController < ApplicationController
     end
 
     # カートの情報を注文商品に移動
-    @cart_items = current_cart
+    @cart_items = current_customer.cart_items
     @cart_items.each do |cart_item|
-    OrderDetail.create(
-      item: cart_item.item,
-      order: @order,
-      amount: cart_item.amount,
-      subprice: sub_price(cart_item)
-    )
+    #Orders.create(
+      #item: cart_item.item,
+      #order: @order,
+      #amount: cart_item.amount,
+      #subprice: sub_price(cart_item)
+    #)
     end
     # 注文完了後、カートを空にする
     @cart_items.destroy_all
 	end
 
-	def complete
+	def thx
 	end
 
 	def index
     @orders = current_customer.orders
+    if @oder.nil?
+        @nil_result = "nil"
+    else
+        @nil_result = "nil"
+    end
 	end
 
 	def show
@@ -88,14 +98,14 @@ class Public::OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:post_code, :address, :name, :payment_method, :total_price)
+    params.require(:order).permit(:post_code, :address, :name, :payment_method, :total_payment)
   end
 
   def address_params
-    params.require(:order).permit(:post_code, :address, :name)
+    params.require(:address).permit(:post_code, :address, :name)
   end
 
-  def to_comfirmation
+  def to_log
     redirect_to customers_cart_items_path if params[:id] == "comfirmation"
   end
 end

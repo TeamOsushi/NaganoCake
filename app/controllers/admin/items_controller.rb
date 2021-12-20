@@ -21,7 +21,7 @@ class Admin::ItemsController < ApplicationController
        redirect_to admin_item_path(item.id)
       else
        render 'new'
-  アア
+      end
     end
     
     def edit

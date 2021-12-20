@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     :registrations => 'customers/registrations',
    }
   root to: 'public/homes#top'
+  root to: 'admin/homes#top'
   get 'public/home/about' => 'public/homes#about'
   
    scope module: :public do

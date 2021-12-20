@@ -17,7 +17,8 @@ class Public::CartItemsController < ApplicationController
 	end
 
 	def create
-    @cart_item = current_customer.cart_items.new(params_cart_item)
+    @cart_item = CartItem.new(cart_item_params)
+    @cart_item.customer_id = current_customer.id
 
     # 追加した商品の数量を合わせる
     @update_cart_item =  CartItem.find_by(item: @cart_item.item)
@@ -27,13 +28,13 @@ class Public::CartItemsController < ApplicationController
     end
 
     if @cart_item.save
-      flash[:notice] = "#{@cart_item.item.name}をカートに追加しました"
-      redirect_to item_path
+      flash[:notice] = "#{@cart_item.item.item_name}をカートに追加しました"
+      redirect_to customers_cart_items_path
     else
       @item = Item.find(params[:cart_item][:item_id])
       @cart_item = CartItem.new
       flash[:alert] = "個数を選択してください"
-      render ("customer/items/show")
+      render "public/items/show"
     end
 	end
 
@@ -53,7 +54,7 @@ class Public::CartItemsController < ApplicationController
 
   private
 
-  def params_cart_item
+  def cart_item_params
     params.require(:cart_item).permit(:amount, :item_id)
   end
 end

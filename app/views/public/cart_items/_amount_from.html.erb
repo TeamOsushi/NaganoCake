@@ -1,9 +1,9 @@
 <td class="text-left">
   <%= attachment_image_tag( cart_item.item, :image, size: "50x50", fallback: "no_image.jpg") %>
-  <%= cart_item.item.name %>
+  <%= cart_item.item.item_name %>
 </td>
 <td class="text-right">
-  ¥<%= tax_price(cart_item.item.tax_out_price).to_s(:delimited) %>
+  ¥<%= cart_item.item.price_without_tax.to_s(:delimited) %>
 </td>
 <td>
   <%= form_for(cart_item, url: customers_cart_item_path(cart_item), method: :patch , remote: true)do |f| %>
@@ -12,8 +12,8 @@
   <% end %>
 </td>
 <td class="text-right" id='sub_price-<%= cart_item.id %>'>
-  ¥<%= sub_price(cart_item).to_s(:delimited) %>
+  ¥<%#= sub_price(cart_item).to_s(:delimited) %> <%#後で追加%>
 </td>
 <td>
-  <%= link_to " 削除する", customers_cart_item_path(cart_item), method: :delete, remote: true, data: {confirm: "#{cart_item.product.name}を削除してよろしいですか？"}, class: "glyphicon glyphicon-trash btn btn-danger" %>
+  <%= link_to " 削除する", customers_cart_item_path(cart_item), method: :delete, remote: true, data: {confirm: "#{cart_item.item.item_name}を削除してよろしいですか？"}, class: "glyphicon glyphicon-trash btn btn-danger" %>
 </td>

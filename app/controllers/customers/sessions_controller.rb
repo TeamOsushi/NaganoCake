@@ -3,9 +3,11 @@
 class Customers::SessionsController < Devise::SessionsController
 before_action :customer_state, only: [:create]
 
-
+  def after_sign_in_path_for(resource)
+    customers_path
+  end
 protected
-# 退会しているかを判断するメソッド
+# 退会しているかを判断するメソッドs
   def customer_state
   ## 【処理内容1】 入力されたemailからアカウントを1件取得
   @customer = Customer.find_by(email: params[:customer][:email])

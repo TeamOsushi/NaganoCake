@@ -17,16 +17,16 @@
             <tr>
               <td class="text-left">
                 <%= attachment_image_tag( cart.item, :image, size: "50x50", fallback: "no_image.jpg") %>
-                <%= cart.item.name %>
+                <%= cart.item.item_name %>
               </td>
               <td class="text-right">
-                ¥<%= tax_price(cart.item.price_without_tax).to_s(:delimited) %>
+                ¥<%#= tax_price(cart.item.price_without_tax).to_s(:delimited) %>
               </td>
               <td class="text-right">
                   <%= cart.amount %>
               </td>
               <td class="text-right">
-                ¥<%= sub_price(cart).to_s(:delimited) %>
+                ¥<%#= sub_price(cart).to_s(:delimited) %>
               </td>
             </tr>
           <% end %>
@@ -41,11 +41,11 @@
           </tr>
           <tr>
             <th class="info">商品合計</th>
-            <td class="text-right">¥<%= total_price(@cart_items).to_s(:delimited) %></td>
+            <td class="text-right">¥<%#= total_price(@cart_items).to_s(:delimited) %></td>
           </tr>
           <tr>
             <th class="info">請求金額</th>
-            <td class="text-right">¥<%= total_payment(@order).to_s(:delimited) %></td>
+            <td class="text-right">¥<%= @order.total_payment %></td>
           </tr>
       </table>
     </div>
@@ -71,7 +71,7 @@
         <%= f.hidden_field :address %>
         <%= f.hidden_field :name %>
         <%= f.hidden_field :payment_method %>
-        <%= f.hidden_field :total_price %>
+        <%= f.hidden_field :total_payment %>
         <%= f.hidden_field :ship, value: @ship %>
         <%= link_to "注文情報入力へ戻る", new_customers_order_path, data: {"turbolinks" => false}, class: "btn btn-info col-xs-3 back" %>
         　　<i class="fas fa-shipping-fast fa-2x"></i>

@@ -5,11 +5,13 @@ class Public::ItemsController < ApplicationController
     
     def show
       @item = Item.find(params[:id])
+      @cart_item = CartItem.new
     end
     
     def create
       cart = Cart_item.new(params[:id])
       cart.save
+      redirect_to customers_cart_items_path(cart_item.id)
     end
 end
 
