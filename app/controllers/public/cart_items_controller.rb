@@ -10,7 +10,7 @@ class Public::CartItemsController < ApplicationController
 
 	def update
     @cart_item.update(amount: params[:cart_item][:amount].to_i)
-    flash.now[:success] = "#{@cart_item.product.name}の数量を変更しました"
+    flash.now[:success] = "#{@cart_item.item.name}の数量を変更しました"
     @price = sub_price(@cart_item).to_s(:delimited)
     @cart_items = current_cart
     @total = total_price(@cart_items).to_s(:delimited)
@@ -20,7 +20,7 @@ class Public::CartItemsController < ApplicationController
     @cart_item = current_customer.cart_items.new(params_cart_item)
 
     # 追加した商品の数量を合わせる
-    @update_cart_item =  CartItem.find_by(product: @cart_item.product)
+    @update_cart_item =  CartItem.find_by(item: @cart_item.item)
     if @update_cart_item.present? && @cart_item.valid?
         @cart_item.amount += @update_cart_item.amount
         @update_cart_item.destroy
