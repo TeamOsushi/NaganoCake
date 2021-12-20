@@ -3,7 +3,7 @@ before_action :configure_permitted_parameters, if: :devise_controller?
     
     def index
      @item = Item.new
-     @items = Iten.all
+     @items = Item.all
     end
     
     def new
