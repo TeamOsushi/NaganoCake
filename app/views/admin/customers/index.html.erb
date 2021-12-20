@@ -1,6 +1,6 @@
 <h2 class="head-line title_h2 text-center">会員一覧</h2>
 <div class="row">
-  <div class="col-xs-10 col-xs-offset-1">
+   <div class='col-md-8 offset-md-1'>
     <table class="table table-hover table-bordered table-condensed">
       <thead>
         <tr class="info">
@@ -14,7 +14,7 @@
       <tbody>
         <% @customers.each do |customer| %>
           <tr>
-            <td class="info col-xs-1">
+            <td class="info col-xs-8">
               <%= customer.id %>
             </td>
             <td class="text-left">
@@ -37,6 +37,6 @@
         <% end %>
       </tbody>
     </table>
-  </div>
     <div class= "text-center"><%= paginate(@customers) %></div>
+</div>
 </div>

@@ -2,7 +2,7 @@
     <%= full_name(@customer) %>さんの会員詳細
   </h2>
   <div class="row">
-    <div class="col-xs-8">
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
       <div class="field">
         <p>
           顧客ID　　　　　<%= @customer.id %>
@@ -48,5 +48,6 @@
         <%= link_to "編集する",edit_admin_customer_path(@customer), class: "glyphicon glyphicon-pencil btn btn-success edit_shipping_addres_#{@customer.id}" %>
         <%= link_to " 注文履歴一覧を見る", current_index_admin_order_path(@customer), class: "glyphicon glyphicon-folder-open btn btn-info" %>
       </div>
+      
     </div>
   </div>
