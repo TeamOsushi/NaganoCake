@@ -1,0 +1,17 @@
+<h1>編集画面</h1>
+
+ <h4>商品の名前</h4>
+<%= form_with model:@item, url: admin_item_path(@item.id), local:true do |f| %>
+ <%= f.text_field :item_name %>
+ <h4>商品のジャンル</h4>
+ <%= f.collection_select :genre_id, Genre.all, :id, :name %>
+ <h4>商品の画像</h4>
+ <%= f.attachment_field :image %>
+ <h4>商品の説明文</h4>
+ <%= f.text_area :introduction %>
+ <h4>商品の値段</h4>
+ <%= f.number_field :price_without_tax %>
+ <h4>商品の販売状況</h4>
+ <%= f.select :is_sales_status, [['販売中', true], ['販売停止', false]],class: 'form-control' %>
+ <%= f.submit '商品を変更' %>
+<% end %>

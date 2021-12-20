@@ -1,0 +1,49 @@
+<% provide(:title, "マイページ") %>
+<div class='container'>
+  <div class='row'>
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+		<h2 class="head-line text-center title_h2">マイページ</h2>
+		<p><strong class="information-link"><i class="far fa-user"></i>登録情報</strong>
+			<%= link_to " 編集する", customer_edit_path, class: "glyphicon glyphicon-pencil btn btn-success" %>
+			<%= link_to " パスワードを変更する", edit_customer_registration_path, class: "glyphicon glyphicon-pencil btn btn-warning" %>
+		</p>
+
+			<table class="table table-bordered table-condensed" >
+				<tbody>
+					<tr>
+						<td class="info col-xs-2">氏名</td>
+						<td class="text-left"><%= full_name(@customer) %></td>
+					</tr>
+					<tr>
+						<td class="info">カナ</td>
+						<td class="text-left"><%= kana_full_name(@customer) %></td>
+					</tr>
+					<tr>
+						<td class="info">郵便番号</td>
+						<td class="text-left"><%= @customer.post_code %></td>
+					</tr>
+					<tr>
+						<td class="info">住所</td>
+						<td class="text-left"><%= @customer.address %></td>
+					</tr>
+					<tr>
+						<td class="info">電話番号</td>
+						<td class="text-left"><%= @customer.telephone_number %></td>
+					</tr>
+					<tr>
+						<td class="info">メールアドレス</td>
+						<td class="text-left"><%= @customer.email %></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div class="mypage-bottoms">
+				<P><strong class="shipping-link">配送先</strong>
+					<%= link_to " 一覧を見る", customers_addresses_path, data: {"turbolinks" => false}, class: "glyphicon glyphicon-folder-open btn btn-info" %>
+				</p>
+				<p><strong class="order-link">注文履歴</strong>
+					<%= link_to " 一覧を見る", customers_orders_path, class: "glyphicon glyphicon-folder-open btn btn-info" %>
+				</p>
+			</div>
+	</div>
+</div>
