@@ -1,7 +1,6 @@
 class Public::CartItemsController < ApplicationController
   include ApplicationHelper
 
-  before_action :cart_item, only: [:update, :destroy]
   before_action :authenticate_customer!
 
   def index
@@ -14,13 +13,7 @@ class Public::CartItemsController < ApplicationController
     @total_price = sum
   end
 
-	def update
-    @cart_item.update(amount: params[:cart_item][:amount].to_i)
-    flash.now[:success] = "#{@cart_item.item.name}の数量を変更しました"
-    @price = sub_price(@cart_item).to_s(:delimited)
-    @cart_items = current_cart
-    @total = total_price(@cart_items).to_s(:delimited)
-	end
+
 
 	def create
     @cart_item = CartItem.new(cart_item_params)
@@ -43,6 +36,13 @@ class Public::CartItemsController < ApplicationController
       render "public/items/show"
     end
 	end
+	
+	def update
+	  cart_item = CartItem.find(params[:id])
+    cart_item.update(cart_item_params)
+     flash.now[:success] = "#{cart_item.item.item_name}の数量を変更しました"
+    redirect_to customers_cart_items_path
+	end
 
 	def all_destroy
     @cart_items = current_customer.cart_items
@@ -52,9 +52,10 @@ class Public::CartItemsController < ApplicationController
 	end
 
   def destroy
-    @cart_items.destroy
+    @cart_item = CartItem.find(params[:id])
+    @cart_item.destroy
     flash[:alert] = "カートから削除しました"
-    redirect_to cart_items_path
+    redirect_to customers_cart_items_path
   end
 	
   private
