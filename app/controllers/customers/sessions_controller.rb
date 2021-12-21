@@ -4,7 +4,7 @@ class Customers::SessionsController < Devise::SessionsController
 before_action :customer_state, only: [:create]
 
   def after_sign_in_path_for(resource)
-    customers_path
+    root_path
   end
 protected
 # 退会しているかを判断するメソッドs

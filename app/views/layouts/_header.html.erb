@@ -29,6 +29,7 @@
         <li><i class="fas fa-sign-out-alt text-light"><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %></i></li>
        <%#いずれもログインしていない時%>
        <% else %>
+       <li><i class="text-light mx-4 h3 "><%= link_to 'ながのケーキ', root_path %></i></li>
         <li><i class="fas fa-cheese text-light mx-4" ><%= link_to '商品一覧', items_path %></i></li>
         <li><i class="fas fa-store text-light pr-4"><%= link_to 'アバウト', public_home_about_path %></i></li>
         <li><i class="fas fa-user-plus text-light"><%= link_to '新規登録', new_customer_registration_path %></i></li>

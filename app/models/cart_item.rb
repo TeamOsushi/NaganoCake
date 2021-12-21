@@ -4,4 +4,8 @@ class CartItem < ApplicationRecord
 
 	validates :customer_id, :item_id, :amount, presence: true
 	validates :amount, numericality: { only_integer: true }
+	
+	def subtotal
+     item.with_tax_price * amount
+    end
 end
