@@ -1,17 +1,16 @@
 class Public::AddressesController < ApplicationController
-    before_action :authenticate_customer!
 
     def index
-      	@addresses = current_customer.address
+      	@addresses = current_customer.addresses
       	@address = Address.new
     end
     
     def create
     	  @address = Address.new(address_params)
     	  @address.customer_id = current_customer.id
-        @addresses = current_customer.address
         if @address.save
     	  	 flash.now[:notice] = "新規配送先を登録しました"
+    	  	 redirect_to customers_addresses_path
         end
     end
 
@@ -32,8 +31,9 @@ class Public::AddressesController < ApplicationController
 	def destroy
 	  @address = Address.find(params[:id])
 	  @address.destroy
-    @addresses = current_customer.address
+    @addresses = current_customer.addresses
     flash.now[:alert] = "配送先を削除しました"
+    redirect_to customers_addresses_path
 	end
 
 	private
