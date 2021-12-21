@@ -7,15 +7,14 @@
     <div class="col-xs-offset-1">
       <%= form_with :model => @order, url: log_customers_orders_path, method: :post, local: true  do |f| %>
         <h3 class="col-xs-3 sub-head text-center"><i class="fas fa-yen-sign"></i>支払い方法</h3>
-          <div class="col-xs-10 radio">
-            <%= f.radio_button :payment_method, :"クレジットカード", checked: true %>
-            <span>&nbsp;クレジットカード</span>
+         <td>
+          <div class="radio">
+           <%= f.radio_button :payment_method, 0 %>
+           <label class="payment-label"> クレジットカード</label>
+           <%= f.radio_button :payment_method, 1 %>
+           <label class="payment-label">銀行振込</label>
           </div>
-          <div class="col-xs-10 radio">
-            <%= f.radio_button :payment_method, :"銀行振込" %>
-            <span>&nbsp;銀行振り込み</span>
-          </div>
-
+         </td>
         <h3 class="col-xs-3 sub-head text-center"><i class="fas fa-people-carry"></i>お届け先</h3>
           <div class="col-xs-10 radio">
             <%= f.radio_button :addresses, "address", checked: true  %>
