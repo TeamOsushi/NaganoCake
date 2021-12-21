@@ -20,13 +20,13 @@
                 <%= cart.item.item_name %>
               </td>
               <td class="text-right">
-                ¥<%#= tax_price(cart.item.price_without_tax).to_s(:delimited) %>
+                ¥<%= cart.item.with_tax_price%>
               </td>
               <td class="text-right">
                   <%= cart.amount %>
               </td>
               <td class="text-right">
-                ¥<%#= sub_price(cart).to_s(:delimited) %>
+                ¥<%= cart.subtotal%>
               </td>
             </tr>
           <% end %>
@@ -41,7 +41,7 @@
           </tr>
           <tr>
             <th class="info">商品合計</th>
-            <td class="text-right">¥<%#= total_price(@cart_items).to_s(:delimited) %></td>
+            <td class="text-right">¥<%= @total_price %></td>
           </tr>
           <tr>
             <th class="info">請求金額</th>

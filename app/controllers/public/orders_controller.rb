@@ -45,12 +45,21 @@ class Public::OrdersController < ApplicationController
       end
     end
     #合計金額の計算式
+    
     sum = 0
     @cart_items.each do |cart_item|
-      sum += (cart_item.item.price_without_tax * cart_item.amount)
+      sum += cart_item.subtotal
+    end
+    @total_price = sum
+    
+    sum = 0
+    @cart_items.each do |cart_item|
+      sum += (cart_item.item.with_tax_price * cart_item.amount)
     end
     sum += @order.shipping_cost
     @order.total_payment = sum
+    
+
 	end
 
 	def create

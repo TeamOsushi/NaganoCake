@@ -6,6 +6,12 @@ class Public::CartItemsController < ApplicationController
 
   def index
     @cart_items = current_customer.cart_items
+    
+    sum = 0
+    @cart_items.each do |cart_item|
+      sum += cart_item.subtotal
+    end
+    @total_price = sum
   end
 
 	def update
@@ -45,13 +51,12 @@ class Public::CartItemsController < ApplicationController
     redirect_to customers_cart_items_path
 	end
 
-	def destroy
-    @cart_item.destroy
-    flash.now[:alert] = "#{@cart_item.item.name}を削除しました"
-    @cart_items = current_cart
-    @total = total_price(@cart_items).to_s(:delimited)
-	end
-
+  def destroy
+    @cart_items.destroy
+    flash[:alert] = "カートから削除しました"
+    redirect_to cart_items_path
+  end
+	
   private
 
   def cart_item_params

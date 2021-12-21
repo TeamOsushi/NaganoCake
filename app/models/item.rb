@@ -12,4 +12,8 @@ class Item < ApplicationRecord
     validates :genre_id, presence: true
     validates :introduction, presence: true
     validates :price_without_tax, presence: true
+    
+    def with_tax_price
+     (price_without_tax * 1.1).floor
+    end
 end

@@ -28,7 +28,7 @@
     </table>
     <div class="col-xs-9 margin-bottom">
       <div class ="action">
-        <%= link_to " 買い物を続ける", items_path, class: "glyphicon glyphicon-shopping-cart btn btn-info" %>
+        <%= link_to " 買い物を続ける", root_path, class: "glyphicon glyphicon-shopping-cart btn btn-info" %>
       </div>
     </div>
 
@@ -38,7 +38,7 @@
           <tr>
             <td class="warning">合計金額</td>
             <td class="text-right" id='total_price'>
-              ¥<%#= total_price(@cart_items).to_s(:delimited) %>
+              ¥<%= @total_price %>
             </td>
           </tr>
         </thead>
