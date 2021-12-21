@@ -1,10 +1,11 @@
-<% provide(:title, "配送先登録/一覧") %>
-<div class="row">
-    <div class="col-xs-12">
+<div class='container'>
+  <div class='row'>
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
         <h2 class="head-line text-center title_h2">配送先登録/一覧</h2>
         <div id="error">
           <%= render "layouts/error_messages", resource: @address %>
         </div>
+
         <%= form_with(model: @address, :url => {:controller => "public/addresses"}) do |f| %>
             <div class="addres col-xs-10">
                 <div class="form-group col-xs-12">
@@ -29,4 +30,5 @@
           <%= render "index", addresses: @addresses %>
         </div>
     </div>
+</div>
 </div>
