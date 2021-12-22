@@ -18,7 +18,6 @@ class Public::CartItemsController < ApplicationController
 	def create
     @cart_item = CartItem.new(cart_item_params)
     @cart_item.customer_id = current_customer.id
-
     # 追加した商品の数量を合わせる
     @update_cart_item =  CartItem.find_by(item: @cart_item.item)
     if @update_cart_item.present? && @cart_item.valid?

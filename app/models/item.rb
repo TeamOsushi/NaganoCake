@@ -2,7 +2,7 @@ class Item < ApplicationRecord
     belongs_to :genre
 	   has_many :cart_items
    	has_many :orders, through: :order_items
-   	has_many :order_details
+   	has_many :order_items
     #画像読み込む為の物
     attachment :image
     

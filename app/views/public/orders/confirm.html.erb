@@ -60,7 +60,7 @@
         <tr>
           <th  class="info">お届け先</th>
           <td class="text-left">
-            <%= "#{@order.post_code} #{@order.address} 　#{@order.name}" %>
+            <%= @order.address %>
           </td>
         </tr>
       </table>
@@ -72,7 +72,6 @@
         <%= f.hidden_field :name %>
         <%= f.hidden_field :payment_method %>
         <%= f.hidden_field :total_payment %>
-        <%= f.hidden_field :ship, value: @ship %>
         <%= link_to "注文情報入力へ戻る", new_customers_order_path, data: {"turbolinks" => false}, class: "btn btn-info col-xs-3 back" %>
         　　<i class="fas fa-shipping-fast fa-2x"></i>
         <%= f.submit "購入を確定する", class: "btn btn-warning center-block col-xs-5" %>
