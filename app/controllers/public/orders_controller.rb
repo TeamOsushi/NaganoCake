@@ -9,43 +9,33 @@ class Public::OrdersController < ApplicationController
   	@shipping_addresses = Address.where(customer: current_customer)
   end
 
-	def log
+	def confirm
     @cart_items = current_customer.cart_items
-		@order = Order.new(
-      customer: current_customer,
-      payment_method: params[:order][:payment_method]
-    )
-
-
-    # addressにresidenceの値がはいっていれば
-    if params[:order][:addresses] == "residence"
+    @order = Order.new(order_params)
+    @current_customer_order = current_customer
+    #合計金額の計算式
+    
+        # addressにresidenceの値がはいっていれば
+    if params[:order][:address_option] == "residence"
       @order.post_code = current_customer.post_code
       @order.address = current_customer.address
       @order.name = current_customer.last_name +
                            current_customer.first_name
 
     # addressにshipping_addressesの値がある場合
-    elsif params[:order][:addresses] == "shipping_addresses"
-      ship = ShippingAddress.find(params[:order][:shipping_address_id])
+    elsif params[:order][:address_option] == "shipping_addresses"
+      ship = Address.find(params[:order][:address_id])
       @order.post_code = ship.post_code
       @order.address = ship.address
       @order.name = ship.name
-
-    # addressにnew_addressの値がある場合
-    elsif params[:order][:addresses] == "new_address"
-      @order.post_code = params[:order][:post_code]
-      @order.address = params[:order][:address]
-      @order.name = params[:order][:name]
-      @ship = "1"
-
+      
       # エラーメッセージを表示
-      unless @order.valid? == true
-        @shipping_addresses = ShippingAddress.where(customer: current_customer)
-        render :new
-      end
+      #unless @order.valid? == true
+        #@shipping_addresses = ShippingAddress.where(customer: current_customer)
+        #render :new
+      #end
     end
     #合計金額の計算式
-    
     sum = 0
     @cart_items.each do |cart_item|
       sum += cart_item.subtotal
@@ -63,29 +53,32 @@ class Public::OrdersController < ApplicationController
 	end
 
 	def create
-    @order = current_customer.orders.new(order_params)
+    @order = Order.new(order_params)
+    @order.customer_id = current_customer.id
     @order.save
+    
     flash[:notice] = "ご注文が確定しました。"
     redirect_to thanx_customers_orders_path
 
     # 新規住所(new_address)の場合saveする
-    if params[:order][:ship] == "1"
+    if params[:order][:addresses] == "2"
       current_customer.shipping_address.create(address_params)
     end
 
     # カートの情報を注文商品に移動
     @cart_items = current_customer.cart_items
     @cart_items.each do |cart_item|
-    #Orders.create(
-      #item: cart_item.item,
-      #order: @order,
-      #amount: cart_item.amount,
-      #subprice: sub_price(cart_item)
-    #)
+    OrderItem.create(
+      item_id: cart_item.item.id,
+      order_id: @order.id,
+      amount: cart_item.amount,
+      price: cart_item.item.price_without_tax
+    )
     end
     # 注文完了後、カートを空にする
     @cart_items.destroy_all
 	end
+	
 
 	def thx
 	end
@@ -101,7 +94,7 @@ class Public::OrdersController < ApplicationController
 
 	def show
 	  @order = Order.find(params[:id])
-    @create_status = @order.create_status
+    　　@create_status = @order.create_status
 	end
 
   private

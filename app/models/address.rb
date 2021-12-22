@@ -8,4 +8,8 @@ class Address < ApplicationRecord
 	def order_address
 			self.post_code + self.address + self.name
 	end
+	
+	def full_address
+     '〒' + post_code + ' ' + address + ' ' + name
+    end
 end
