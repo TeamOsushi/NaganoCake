@@ -3,7 +3,7 @@ class Public::OrdersController < ApplicationController
 
   before_action :to_comfirmation, only: [:show]
   before_action :authenticate_customer!
-  
+
   def new
   	@order = Order.new
   	@shipping_addresses = Address.where(customer: current_customer)
@@ -14,7 +14,7 @@ class Public::OrdersController < ApplicationController
     @order = Order.new(order_params)
     @current_customer_order = current_customer
     #合計金額の計算式
-    
+
         # addressにresidenceの値がはいっていれば
     if params[:order][:address_option] == "residence"
       @order.post_code = current_customer.post_code
@@ -28,7 +28,7 @@ class Public::OrdersController < ApplicationController
       @order.post_code = ship.post_code
       @order.address = ship.address
       @order.name = ship.name
-      
+
       # エラーメッセージを表示
       #unless @order.valid? == true
         #@shipping_addresses = ShippingAddress.where(customer: current_customer)
@@ -41,14 +41,14 @@ class Public::OrdersController < ApplicationController
       sum += cart_item.subtotal
     end
     @total_price = sum
-    
+
     sum = 0
     @cart_items.each do |cart_item|
       sum += (cart_item.item.with_tax_price * cart_item.amount)
     end
     sum += @order.shipping_cost
     @order.total_payment = sum
-    
+
 
 	end
 
@@ -56,7 +56,7 @@ class Public::OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
     @order.save
-    
+
     flash[:notice] = "ご注文が確定しました。"
     redirect_to thanx_customers_orders_path
 
@@ -78,7 +78,7 @@ class Public::OrdersController < ApplicationController
     # 注文完了後、カートを空にする
     @cart_items.destroy_all
 	end
-	
+
 
 	def thx
 	end
@@ -94,19 +94,20 @@ class Public::OrdersController < ApplicationController
 
 	def show
 	  @order = Order.find(params[:id])
+	  @order_items = @order.order_items
 	end
 
   private
 
   def order_params
-    params.require(:order).permit(:post_code, :address, :name, :payment_method, :total_payment)
+    params.require(:order).permit(:post_code, :address, :name, :payment_method, :total_payment, :order_items)
   end
 
   def address_params
     params.require(:address).permit(:post_code, :address, :name)
   end
 
-  def to_log
+  def to_comfirmation
     redirect_to customers_cart_items_path if params[:id] == "comfirmation"
   end
 end
