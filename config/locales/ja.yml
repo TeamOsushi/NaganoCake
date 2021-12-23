@@ -6,8 +6,15 @@
           transfer: "銀行振込"
         
         order_status:
-          0: "入金待ち"
-          1: "入金確認"
-          2: "製作中"
-          3: "発送準備中"
-          4: "発送済み"
+          waiting_deposit: "入金待ち"
+          payment_confirmation: "入金確認"
+          in_production: "製作中"
+          preparing_ship: "発送準備中"
+          sent: "発送済み"
+          
+      order_item:
+        create_status:
+          not_startable: "着手不可"
+          waiting_production: "製作待ち"
+          in_production: "製作中"
+          production_completed: "製作完了"

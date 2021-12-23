@@ -27,14 +27,14 @@
 	        支払い方法
 	      </div>
 	      <div class="col-xs-8">
-	        <%= @order.payment_method %>
+	        <%= @order.payment_method_i18n %>
 	      </div>
 	    </div>
 
- 	  <%= form_for(@order, url: admin_order_path, method: :patch) do |f| %>
+ 	  <%= form_with model:@order, url: admin_order_path, method: :patch, local:true do |f| %>
  	    <div class="col-xs-4">注文ステータス</div>
       	  <div class="col-xs-6">
-            <%= f.select :order_status, Order.order_statuses.keys, class: "order_status" %>
+            <%= f.select :order_status, Order.order_statuses_i18n.invert %>
           </div>
 
       	<div class="actions">
@@ -75,12 +75,12 @@
 			            <td class="text-right">
 			              ¥<%= (order_item.item.with_tax_price * order_item.amount).to_s(:delimited) %>
 			            </td>
-			            <%#= form_for(create_status, url: admin_create_status_path(create_status), method: :patch) do |f| %>
 			            <td>
-			            	<%#= f.select :item_status, CreateStatus.item_statuses.keys, class: "order_status" %>
-			            	<%#= f.submit '更新'  ,class: "btn btn-warning" %>
-			            </td>
-			            <%# end %>
+		               <%= form_with model: order_item, url: admin_order_order_item_path(order_item.id), local: true do |f| %>
+					    <%= f.select :create_status, OrderItem.create_statuses_i18n.invert %>
+					    <%= f.submit "更新", class:'btn btn-info' %>
+					  	<% end %>
+            			</td>
 			      	</tr>
 				<% end %>
 				</tbody>

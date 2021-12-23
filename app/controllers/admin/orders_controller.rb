@@ -33,10 +33,12 @@ class Admin::OrdersController < ApplicationController
 		   render "show"
 		end
 	end
-
+  
 	private
 	
 	def order_params
 		  params.require(:order).permit(:order_status)
 	end
+	
+	
 end
