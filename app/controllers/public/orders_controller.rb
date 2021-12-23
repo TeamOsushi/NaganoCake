@@ -94,7 +94,6 @@ class Public::OrdersController < ApplicationController
 
 	def show
 	  @order = Order.find(params[:id])
-    　　@create_status = @order.create_status
 	end
 
   private

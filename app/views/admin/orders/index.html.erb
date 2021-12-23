@@ -24,7 +24,12 @@
 		          <%= full_name(order.customer) %>
 		        </td>
 		        <td class="text-right">
-		          <%= order.create_status.count %>
+                  <% @sum  = 0 %>
+                  <% order.order_items.all.each do |order_item|  %>
+                    <% @amount = order_item.amount  %>
+                    <% @sum += @amount  %>
+                  <% end %>
+                  <%= @sum %>
 		        </td>
     	        <td>
     	      	  <%= order.order_status %>

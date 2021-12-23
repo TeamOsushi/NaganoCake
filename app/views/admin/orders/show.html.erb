@@ -1,5 +1,6 @@
 <% provide(:title, "注文履歴詳細") %>
 <h2 class="head-line title_h2 text-center">注文履歴詳細</h2>
+<div class="container">
   <div class="row">
     <div class="col-xs-12" >
       <div class="col-xs-9">
@@ -17,7 +18,7 @@
 	        配送先
 	      </div>
 	      <div class="col-xs-8">
-	        <%= full_address(@order) %>
+	        <%= @order.post_code %><%= @order.address %><%= @order.name %>
 	      </div>
 	    </div>
 
@@ -60,26 +61,26 @@
 		             <%= flash[:notice] %>
 		          	</div>
 	          	<% end %>
-				<% @create_status.each do |create_status| %>
+				<% @order_items.each do |order_item| %>
 					<tr>
 			            <td class="text-left">
-			              <%= create_status.item.name %>
+			              <%= order_item.item.item_name %>
 			            </td>
 			            <td class="text-right">
-			              ¥<%= tax_price(create_status.item.price_without_tax).to_s(:delimited) %>
+			              ¥<%= (order_item.item.with_tax_price).to_s(:delimited) %>
 			            </td>
 			            <td class="text-right">
-			              <%= create_status.amount %>
+			              <%= order_item.amount %>
 			            </td>
 			            <td class="text-right">
-			              ¥<%= sub_price(create_status).to_s(:delimited) %>
+			              ¥<%= (order_item.item.with_tax_price * order_item.amount).to_s(:delimited) %>
 			            </td>
-			            <%= form_for(create_status, url: admin_create_status_path(create_status), method: :patch) do |f| %>
+			            <%#= form_for(create_status, url: admin_create_status_path(create_status), method: :patch) do |f| %>
 			            <td>
-			            	<%= f.select :item_status, CreateStatus.item_statuses.keys, class: "order_status" %>
-			            	<%= f.submit '更新'  ,class: "btn btn-warning" %>
+			            	<%#= f.select :item_status, CreateStatus.item_statuses.keys, class: "order_status" %>
+			            	<%#= f.submit '更新'  ,class: "btn btn-warning" %>
 			            </td>
-			            <% end %>
+			            <%# end %>
 			      	</tr>
 				<% end %>
 				</tbody>
@@ -90,7 +91,7 @@
 			<table class="table table-hover table-bordered table-condensed">
 				<tr>
             		<th class="info">商品合計</th>
-					<td>¥<%= total_price(@create_status).to_s(:delimited) %></td>
+					<td>¥<%= (@sum).to_s(:delimited) %></td>
 				</tr>
 				<tr>
 					<th class="info">送料</th>
@@ -106,4 +107,5 @@
       <%= link_to "戻る", admin_orders_path, class: "glyphicon glyphicon-home btn btn-info" %>
     </div>
    </div>
+  </div>
   </div>
