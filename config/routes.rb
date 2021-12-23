@@ -6,19 +6,16 @@ Rails.application.routes.draw do
     :registrations => 'admins/registrations',
    }
   namespace :admin do
+    patch "orders/create_status" => "orders#create_status_update"
     resources :customers,only: [:index,:show,:edit,:update]
   	resources :items,only: [:index,:new,:create,:show,:edit,:update,]
   	resources :genres,only: [:index,:create,:edit,:update, :show]
   	resources :orders,only: [:index,:show,:update] do
   	get 'top'=>'public/homes#top'
   	post 'items' => 'items#create'
-  	  member do
-        get :current_index
-        resource :order_items,only: [:update]
-      end
-      collection do
-        get :order_index
-      end
+    get :current_index
+    resources :order_items,only: [:update]
+    get :order_index
     end
   end
 
