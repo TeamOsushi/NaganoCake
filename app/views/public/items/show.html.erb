@@ -1,9 +1,15 @@
+
 <div class="container">
  <div class="row">
-  <%= attachment_image_tag @item, :image, :fill, 300, 300, format: 'jpeg' %>
-  <%= @item.item_name %>
-  <%= @item.genre_id %>
-  <%= @item.introduction %>
+   <h1 class="mx-auto pt-5 pb-5">商品情報</h1>
+ </div>
+<div class="container container-m">
+ <div class="card-deck">
+  <div class="card">
+   <div class="card-body">
+  <%= attachment_image_tag @item, :image, size: '300x250', format: 'jpeg' %>
+  <p class="card-text text-center"><%= @item.item_name %></h5>
+  <h5 class="card-title text-center"><%= @item.introduction %></h5>
   <%= @item.price_without_tax %>
   <% if @item.is_sales_status == true %>
    <%= "販売中" %>
@@ -17,5 +23,7 @@
    <%= f.submit 'カートに入れる' %>　<%#ログインせずに押した場合はログインしてくださいとメッセージを出してカートには入れれないようにする%>
   <% end %>
  </div>
+</div>
+</div>
 </div>
  

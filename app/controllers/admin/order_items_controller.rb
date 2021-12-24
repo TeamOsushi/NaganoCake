@@ -18,7 +18,7 @@ def update
             end
             if compiled_items.size == order_items.size
                 @order.order_status = "preparing_ship"
-　　　　　　　	@order.save
+　　　　　　　o-da-	@order.save
 		    end
          end
         redirect_to admin_order_path(@order)
