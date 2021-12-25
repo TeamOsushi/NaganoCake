@@ -1,5 +1,5 @@
 class Admin::OrderItemsController < ApplicationController
-    
+
 def update
 	@order_item = OrderItem.find(params[:order_id])
 	@order = @order_item.order
@@ -18,7 +18,7 @@ def update
             end
             if compiled_items.size == order_items.size
                 @order.order_status = "preparing_ship"
-　　　　　　　o-da-	@order.save
+                @order.save
 		    end
          end
         redirect_to admin_order_path(@order)
@@ -31,5 +31,5 @@ end
 	def order_item_params
 	    params.require(:order_item).permit(:create_status, :id, :order_id)
 	end
-	
+
 end
