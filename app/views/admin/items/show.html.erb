@@ -11,11 +11,11 @@
   <div class="col-md-8">
    <h1 class="pb-4"><%= @item.item_name %></h1>
    <h5 class="pb-4"><%= @item.introduction %></h5></br>
-   <h5 class="pb-4"><%= @item.genre,name %></h5></br>
+   <h5 class="pb-4"><%= @item.genre.name %></h5></br>
    <h5 class="pr-3 pb-4"><%= @item.price_without_tax %>円</h5>
    <%= link_to "商品情報編集", edit_admin_item_path(@item.id), class: "btn btn-success" %>
   </div>
-  
-  
+
+
  </div>
  </div>
