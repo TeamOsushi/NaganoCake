@@ -15,8 +15,10 @@
     <% if item.is_sales_status == true %>
     <p class="card-text text-center"><%= item.price_without_tax %>円</p>
     <% elsif item.is_sales_status == false %>
-     <p class="card-text text-center","売り切れ中"></p>
+     <p class="card-text text-center">売り切れ中</p>
     <% end %>
+   </div>
+   </div>
     <% end %>
   </div>
  </div>

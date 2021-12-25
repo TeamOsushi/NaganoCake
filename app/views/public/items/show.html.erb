@@ -3,24 +3,27 @@
  <div class="row">
    <h1 class="mx-auto pt-5 pb-5">商品情報</h1>
  </div>
-<div class="container container-m">
- <div class="card-deck">
-  <div class="card">
-   <div class="card-body">
-  <%= attachment_image_tag @item, :image, size: '300x250', format: 'jpeg' %>
-  <p class="card-text text-center"><%= @item.item_name %></h5>
-  <h5 class="card-title text-center"><%= @item.introduction %></h5>
-  <%= @item.price_without_tax %>
-  <% if @item.is_sales_status == true %>
-   <%= "販売中" %>
-   <%= form_with model: @cart_item, url: customers_cart_items_path, local:true do |f| %>
-   <%= f.hidden_field :item_id, value: @item.id %> <%#顧客がどの商品をカートに入れたかを自動で入力してくれるもの%>
-   <%= f.select :amount, [1, 2, 3, 4, 5] %> <%#個数を選択するボタン、これで正しいかまだ分からない %>
-   <%= f.submit 'カートに入れる' %>　<%#ログインせずに押した場合はログインしてくださいとメッセージを出してカートには入れれないようにする%>
-  <% end %>
-  <% else %>
-   <%= "売り切れ" %>
-  <% end %>
+ <div class="container">
+ <div class="row">
+  <div class="col-md-4  img-hidden">
+   <%= attachment_image_tag @item, :image, size: '350x300', format: 'jpeg' %>
+  </div>
+  <div class="col-md-8">
+   <h1 class="pb-4"><%= @item.item_name %></h1>
+   <h5 class="pb-4"><%= @item.introduction %></h5></br>
+   <h5 class="pb-4"><%= @item.genre.name %></h5></br>
+   <h5 class="pr-3"><%= @item.price_without_tax %>円</h5>
+   <% if @item.is_sales_status == true %>
+    <%= "販売中" %>
+    <%= form_with model: @cart_item, url: customers_cart_items_path, local:true do |f| %>
+    <%= f.hidden_field :item_id, value: @item.id %> <%#顧客がどの商品をカートに入れたかを自動で入力してくれるもの%>
+    <%= f.select :amount, [1, 2, 3, 4, 5] %> <%#個数を選択するボタン、これで正しいかまだ分からない %>
+    <%= f.submit 'カートに入れる' %>　<%#ログインせずに押した場合はログインしてくださいとメッセージを出してカートには入れれないようにする%>
+   <% end %>
+   <% else %>
+    <h5><%= "売り切れ" %></h5>
+   <% end %>
+  </div>
   <%#カートに入れるためのフォーム%>
  
  </div>

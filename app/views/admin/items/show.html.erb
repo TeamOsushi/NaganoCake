@@ -1,9 +1,21 @@
 <div class="container">
  <div class="row">
+   <h1 class="mx-auto pt-5 pb-5">商品情報</h1>
+ </div>
+
+<div class="container">
+ <div class="row">
+  <div class="col-md-4  img-hidden">
+   <%= attachment_image_tag @item, :image, size: '350x300', format: 'jpeg' %>
+  </div>
+  <div class="col-md-8">
+   <h1 class="pb-4"><%= @item.item_name %></h1>
+   <h5 class="pb-4"><%= @item.introduction %></h5></br>
+   <h5 class="pb-4"><%= @item.genre,name %></h5></br>
+   <h5 class="pr-3 pb-4"><%= @item.price_without_tax %>円</h5>
+   <%= link_to "商品情報編集", edit_admin_item_path(@item.id), class: "btn btn-success" %>
+  </div>
   
-  <%= attachment_image_tag @item, :image, :fill, 100, 100, format: 'jpeg' %>
-  <%= @item.item_name %>
-  <%= @item.genre_id %>
-  <%= @item.price_without_tax %>
   
-  <%= link_to "編集", edit_admin_item_path(@item.id) %>
+ </div>
+ </div>
